@@ -1310,8 +1310,19 @@ p {
     }
 }
 
+/* Cacher les éléments par défaut avant l'animation */
+.service-card,
+.feature-card,
+.stat-card,
+.faq-item,
+.contact-form.glass-card {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Animation appliquée quand l'élément est visible */
 .fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 /* Widescreen optimizations */
