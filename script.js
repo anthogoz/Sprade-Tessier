@@ -2,6 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for anchor links
     const navLinks = document.querySelectorAll('a[href^="#"]');
+    const navigationLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             // Ne pas gérer le scroll pour les liens qui ouvrent des modals
@@ -11,6 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             e.preventDefault();
             const targetId = this.getAttribute('href');
+            
+            // Remove active class from all nav links and add to clicked one
+            if (this.classList.contains('nav-link')) {
+                navigationLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                this.classList.add('active');
+                // Remove focus after click to prevent green outline
+                this.blur();
+            }
             
             // Si le lien est juste "#", retourner en haut de la page
             if (targetId === '#') {
@@ -42,6 +54,59 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.classList.remove('scrolled');
         }
     });
+
+    // Active navigation link based on scroll position
+    const sections = document.querySelectorAll('section[id]');
+    
+    function updateActiveNavLink() {
+        let currentSection = '';
+        
+        // Check if we're near the bottom of the page
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const pageHeight = document.documentElement.scrollHeight;
+        const nearBottom = scrollPosition >= pageHeight - 100;
+        
+        if (nearBottom) {
+            // If near bottom, activate the last section (contact)
+            const lastSection = Array.from(sections).pop();
+            if (lastSection) {
+                currentSection = lastSection.getAttribute('id');
+            }
+        } else {
+            // Normal section detection
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Use a smaller offset for better detection
+                if (window.scrollY >= (sectionTop - 150)) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+        }
+        
+        // Remove active class from all links
+        navigationLinks.forEach(link => {
+            link.classList.remove('active');
+            
+            // Add active class to current section link
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+        
+        // If at the top of the page, remove all active states
+        if (window.scrollY < 100) {
+            navigationLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+        }
+    }
+    
+    // Update on scroll
+    window.addEventListener('scroll', updateActiveNavLink);
+    
+    // Update on load
+    updateActiveNavLink();
 
     // Contact form handling with FormSpree
     const contactForm = document.getElementById('contactForm');
