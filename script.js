@@ -528,6 +528,16 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
+    
+    // Close modal when clicking on contact links inside modals
+    const modalContactLinks = document.querySelectorAll('.modal-contact-link');
+    modalContactLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Close the modal first
+            closeModal();
+            // The default anchor behavior will then scroll to #contact
+        });
+    });
 });
 
 // FAQ Accordion functionality
