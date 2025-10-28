@@ -349,7 +349,7 @@ p {
     width: 100%;
     max-width: 500px;
     border-radius: var(--border-radius-lg);
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
@@ -357,6 +357,7 @@ p {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: var(--border-radius-lg);
     transition: var(--transition);
 }
 
@@ -366,16 +367,18 @@ p {
 
 .profile-info-glass {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: -30px;
+    left: 10%;
+    right: 10%;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--border-radius-lg);
     padding: 1.5rem 2rem;
     text-align: center;
     transition: var(--transition);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .profile-info-glass h3 {
@@ -398,6 +401,7 @@ p {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 /* Mission Section */
@@ -420,6 +424,27 @@ p {
     overflow: hidden;
     margin-top: 3rem;
     position: relative;
+}
+
+.partners-logos-container::before,
+.partners-logos-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.partners-logos-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-primary) 0%, transparent 100%);
+}
+
+.partners-logos-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-primary) 0%, transparent 100%);
 }
 
 .partners-logos-scroll {
@@ -1058,6 +1083,8 @@ p {
     
     .profile-info-glass {
         padding: 1rem 1.5rem;
+        left: 5%;
+        right: 5%;
     }
     
     .profile-info-glass h3 {
