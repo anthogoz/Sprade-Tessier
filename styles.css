@@ -1659,3 +1659,32 @@ textarea:focus {
         padding: 1rem;
     }
 }
+
+/* Pour Firefox (la méthode moderne) */
+/* Pour Firefox (la méthode moderne) */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent; /* Pouce / Piste */
+  }
+  
+  /* Pour Chrome, Safari et Edge (méthode WebKit) */
+  html::-webkit-scrollbar {
+    width: 8px; /* Largeur */
+  }
+  
+  html::-webkit-scrollbar-track {
+    background: transparent; /* Piste transparente */
+  }
+  
+  html::-webkit-scrollbar-thumb {
+    background-color: #888; /* Couleur du pouce */
+    border-radius: 10px; /* Arrondi */
+  }
+  
+  html::-webkit-scrollbar-button {
+    display: none; /* Cache les flèches */
+  }
+  
+  html::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Au survol */
+  }
